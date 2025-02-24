@@ -1,0 +1,181 @@
+/* ------------------------------------------
+   全局样式
+------------------------------------------ */
+html, body {
+    height: 100%;  /* 使html和body的高度填满整个页面 */
+    margin: 0;     /* 去除默认外边距 */
+}
+
+body {
+    min-height: 100vh;  /* 最小高度为视口高度 */
+    display: flex;      /* 使用flex布局 */
+    justify-content: center;  /* 水平居中 */
+    align-items: center;     /* 垂直居中 */
+    background: url('../images/bg.jpg') center/cover fixed;  /* 背景图片设置 */
+}
+
+/* ------------------------------------------
+   认证卡片样式
+------------------------------------------ */
+.auth-card {
+    background: rgba(240, 208, 2, 0.927);  /* 背景颜色 */
+    padding: 1rem 2.5rem 2.5rem;  /* 上边距减少，左右和下边距设置 */
+    border-radius: 0;  /* 直角边框 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);  /* 阴影 */
+    height: 200px;      /* 设置固定高度 */
+    width: 300px;       /* 设置固定宽度 */
+    transition: transform 0.3s ease;  /* 添加过渡效果 */
+}
+
+/* 认证卡片的hover效果 */
+.auth-card:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 6px 12px rgba(0,0,0,0.06);  /* 双层阴影效果 */
+}
+
+/* ------------------------------------------
+   品牌标识样式
+------------------------------------------ */
+.logo {
+    text-align: center;  /* 水平居中 */
+    margin-bottom: 1rem;  /* 移除底部外边距 */
+    position: relative;  /* 相对定位 */
+    top: 0px;            /* 微调位置 */
+}
+
+.logo h1 {
+    color: #e90000;      /* 字体颜色 */
+    font-size: 1.5rem;    /* 字体大小 */
+    letter-spacing: 2px;  /* 字母间距 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);  /* 添加阴影效果 */
+    margin: 0;            /* 移除默认的h1外边距 */
+}
+
+/* ------------------------------------------
+   表单元素样式
+------------------------------------------ */
+.form-group {
+    margin: 0 auto;         /* 水平居中 */
+    margin-top: 0.5rem;    /* 顶部外边距 */
+    margin-bottom: 0.5rem;  /* 下边距 */
+    max-width: 300px;       /* 设置最大宽度 */
+    width: 100%;            /* 保证宽度自适应 */
+    display: flex;          /* 使用flex布局 */
+    justify-content: center; /* 水平居中 */
+}
+
+input {
+    width: 100%;               /* 输入框占满父元素宽度 */
+    padding: 6px 10px;         /* 设置内边距 */
+    border: 2px solid #eee;    /* 设置边框 */
+    border-radius: 0;          /* 去掉圆角 */
+    font-size: 1rem;           /* 设置字体大小 */
+    transition: all 0.3s ease; /* 设置过渡效果 */
+}
+
+input:focus {
+    outline: none;            /* 移除默认聚焦轮廓 */
+    border-color: #e90000;    /* 聚焦时的边框颜色 */
+    box-shadow: 0 0 8px rgba(0, 147, 233, 0.3);  /* 聚焦时的阴影 */
+}
+
+/* 按钮样式 */
+button {
+    width: 25%;               /* 设置按钮宽度 */
+    display: block;           /* 设置为块级元素 */
+    margin: auto;             /* 水平居中 */
+    margin-top: 1rem;         /* 顶部外边距 */
+    margin-bottom: 0.5rem;      /* 底部外边距 */
+    padding: 8px;             /* 设置内边距 */
+    background: #e90023;      /* 背景颜色 */
+    color: rgb(0, 0, 0);      /* 字体颜色 */
+    border: none;             /* 移除边框 */
+    border-radius: 0;         /* 直角边框 */
+    font-size: 1rem;          /* 字体大小 */
+    cursor: pointer;         /* 鼠标样式 */
+    transition: all 0.3s ease;/* 设置过渡效果 */
+}
+
+button:hover {
+    background: #b60070;      /* 鼠标悬停时的背景颜色 */
+    transform: scale(1.02);    /* 鼠标悬停时的缩放效果 */
+}
+
+/* ------------------------------------------
+   链接文字样式
+------------------------------------------ */
+.link-text {
+    text-align: center;        /* 居中对齐 */
+    margin-top: 0.5rem;         /* 设置顶部外边距 */
+    color: rgb(0, 0, 0);        /* 设置字体颜色 */
+}
+
+.link-text a {
+    color: #b60098;            /* 设置链接颜色 */
+    text-decoration: none;     /* 移除下划线 */
+    font-weight: 600;          /* 字体加粗 */
+    transition: color 0.3s ease; /* 设置过渡效果 */
+}
+
+.link-text a:hover {
+    color: #b60098;            /* 鼠标悬停时的链接颜色 */
+}
+
+/* ------------------------------------------
+   提示消息样式
+------------------------------------------ */
+.flash-messages {
+    margin-bottom: 0.5rem;    /* 设置底部外边距 */
+}
+
+.flash-messages p {
+    padding: 2px 4px;         /* 微调内边距 */
+    background: rgba(255, 235, 238, 0.9);  /* 背景颜色 */
+    color: #d32f2f;           /* 字体颜色 */
+    border: 1px solid #ffcdd2; /* 边框 */
+    border-radius: 0;         /* 直角边框 */
+    font-size: 0.9rem;        /* 字体大小 */
+    animation: fadeIn 0.3s ease-out;  /* 淡入动画 */
+    opacity: 0.9;             /* 降低不透明度 */
+    margin-top: 0.5rem;       /* 顶部外边距 */
+    margin-bottom: 0.5rem;    /* 底部外边距 */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 0.9; }
+}
+
+/* ------------------------------------------
+   仪表盘样式
+------------------------------------------ */
+.dashboard-card {
+    background: rgba(255, 255, 255, 0.95);  /* 背景颜色 */
+    padding: 2rem;                           /* 内边距 */
+    border-radius: 0;                        /* 直角边框 */
+    text-align: center;                      /* 居中对齐 */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* 阴影 */
+}
+
+.welcome-text {
+    font-size: 1.8rem; /* 字体大小 */
+    color: #333;      /* 字体颜色 */
+    margin-bottom: 1.5rem; /* 底部外边距 */
+}
+
+/* ------------------------------------------
+   登出按钮样式
+------------------------------------------ */
+.logout-btn {
+    display: inline-block;  /* 行内块元素 */
+    padding: 10px 25px;     /* 内边距 */
+    background: #0093E9;     /* 背景颜色 */
+    color: white;            /* 字体颜色 */
+    text-decoration: none;   /* 移除下划线 */
+    border-radius: 0;        /* 直角边框 */
+    transition: all 0.3s ease; /* 过渡效果 */
+}
+
+.logout-btn:hover {
+    background: #0077B6;     /* 鼠标悬停时的背景颜色 */
+    transform: translateY(-2px);  /* 鼠标悬停时的移动效果 */
+}
