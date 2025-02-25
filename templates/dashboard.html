@@ -1,9 +1,32 @@
-{% extends "base.html" %}
-{% block title %}控制面板{% endblock %}
+{% block title %}{% endblock %}
+
+{% block page_css %}
+    <!-- 仪表盘专属样式 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
 
 {% block content %}
-<div class="dashboard-card">
-    <h2 class="welcome-text">欢迎回来，{{ username }}！</h2>
-    <a href="{{ url_for('logout') }}" class="logout-btn">退出登录</a>
+<div class="dashboard-container">
+    <!-- Sidebar: 功能选择 -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="{{ url_for('dashboard') }}" class="control-panel">易维</a></li>
+            <li><a href="{{ url_for('feature1') }}">数据库备份</a></li>
+            <li><a href="{{ url_for('feature2') }}">数据血缘关系梳理</a></li>
+            <li><a href="{{ url_for('feature3') }}">作业典范生成</a></li>
+            <li><a href="{{ url_for('logout') }}" class="logout-btn">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="content-wrapper">
+            {% block feature_content %}
+            <!-- 默认显示或特定功能内容 -->
+            <h1>欢迎来到控制面板</h1>
+            <p>请选择左侧的功能进行操作。</p>
+            {% endblock %}
+        </div>
+    </div>
+
 </div>
 {% endblock %}

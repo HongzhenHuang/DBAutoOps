@@ -1,5 +1,9 @@
-{% extends "base.html" %}
-{% block title %}登录{% endblock %}
+{% block title %}{% endblock %}
+
+{% block page_css %}
+    <!-- 登录页专属样式 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
 
 {% block content %}
 <div class="auth-card">
