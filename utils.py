@@ -1,19 +1,27 @@
 import mysql.connector
-from config import db_config
 from flask import render_template
+from mysql.connector import Error
+import logging
 
-def get_db_connection():
-    """
-    获取数据库连接
-    """
-    conn = mysql.connector.connect(**db_config)
-    return conn
+# 数据库连接
+def get_db_connection(host, user, password, database):
+    try:
+        connection = mysql.connector.connect(
+            host = host,
+            user = user,
+            password = password,
+            database = database,
+        )
+        return connection
+    except Error as e:
+        logging.error(f"Error connecting to MySQL: {str(e)}")
+        return None
 
-def init_db():
+def init_db(host, user, password, database):
     """
     初始化数据库
     """
-    conn = get_db_connection()
+    conn = get_db_connection(host, user, password, database)
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
@@ -22,15 +30,27 @@ def init_db():
             password VARCHAR(255) NOT NULL
         )
     ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS backup_locks (
+            host VARCHAR(100) NOT NULL,
+            database_name VARCHAR(100) NOT NULL,
+            table_name VARCHAR(100) NOT NULL,
+            pid VARCHAR(50) NOT NULL,
+            primary key(host, database_name, table_name)
+        );
+    ''')
     conn.commit()
     cursor.close()
     conn.close()
 
-def feature1():
-    return render_template('feature1.html')
+def to_back_up():
+    """
+    跳转到功能1页面
+    """
+    return render_template('back_up.html')
 
-def feature2():
-    return render_template('feature2.html')
-
-def feature3():
-    return render_template('feature3.html')
+def to_data_lineage():
+    """
+    跳转到功能2页面
+    """
+    return render_template('data_lineage.html')

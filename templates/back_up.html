@@ -1,0 +1,109 @@
+{% extends "dashboard.html" %}
+
+{% block feature_content %}
+<div class="backup-container">
+    <h2 class="section-title">查询与备份表信息</h2>
+
+    <!-- 输入查询信息 -->
+    <form method="post" action="{{ url_for('query_table') }}" class="query-form">
+        <div class="form-group">
+            <label for="host">主机号:</label>
+            <input type="text" id="host" name="host" placeholder="请输入主机号" required>
+        </div>
+        <div class="form-group">
+            <label for="database">数据库名:</label>
+            <input type="text" id="database" name="database" placeholder="请输入数据库名" required>
+        </div>
+        <div class="form-group">
+            <label for="table">表名:</label>
+            <input type="text" id="table" name="table" placeholder="请输入表名" required>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">查询表信息</button>
+        </div>
+    </form>
+
+    <!-- 统一显示闪存消息 -->
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- 如果存在查询的表信息，则显示 -->
+    {% if table_info %}
+        <hr class="divider">
+        <h3 class="section-subtitle">表信息</h3>
+        <ul class="table-info">
+            <li><strong>主机号:</strong> {{ table_info.host }}</li>
+            <li><strong>数据库名:</strong> {{ table_info.database }}</li>
+            <li><strong>表名:</strong> {{ table_info.table }}</li>
+            <li><strong>记录数:</strong> {{ table_info.row_count }}</li>
+            <li><strong>字段数:</strong> {{ table_info.field_count }}</li>
+            <li><strong>容量:</strong> {{ table_info.size }}</li>
+        </ul>
+
+        <!-- 显示备份表单 -->
+        <form method="post" action="{{ url_for('backup_table_route') }}" class="backup-form">
+            <!-- 将查询参数传递过去 -->
+            <input type="hidden" name="host" value="{{ request.form.host }}">
+            <input type="hidden" name="database" value="{{ request.form.database }}">
+            <input type="hidden" name="table" value="{{ request.form.table }}">
+
+            <!-- 备份模式 -->
+            <div class="form-group" style="margin-top: 20px;">
+                <label for="mode" style="font-size: 1em; font-weight: bold;">备份模式:</label>
+                <select id="mode" name="mode" style="font-size: 1em; padding: 8px; width: 100%; max-width: 300px;">
+                    <option value="save">仅备份</option>
+                    <option value="delete">备份后删除数据</option>
+                </select>
+            </div>
+
+
+            <!-- 备份字段 -->
+            <div class="form-group">
+                <label for="field" style="font-size: 1em; font-weight: bold;">备份字段:</label>
+                <select id="field" name="field" required style="font-size: 1em; padding: 8px; width: 100%; max-width: 300px;">
+                    <option value="" disabled selected>请选择字段</option>
+                    {% for field in table_info.field %}
+                        <option value="{{ field }}">{{ field }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- 备份区间 -->
+            <div class="form-group">
+                <label for="start">起始值:</label>
+                <input type="text" id="start" name="start" placeholder="请输入起始值">
+            </div>
+            <div class="form-group">
+                <label for="stop">截止值:</label>
+                <input type="text" id="stop" name="stop" placeholder="请输入截止值">
+            </div>
+
+            <!-- 备份目标服务器 -->
+            <div class="form-group">
+                <label for="rsync_target">目标主机:</label>
+                <input type="text" id="rsync_target" name="rsync_target" placeholder="请输入目标主机号">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" name="backup" value="yes" class="btn btn-success">开始备份</button>
+                <button type="submit" name="backup" value="no" class="btn btn-secondary">取消备份</button>
+            </div>
+        </form>
+
+        {% if result %}
+            <div class="flash-messages">
+                <p>{{ result }}</p>
+            </div>
+        {% endif %}
+
+    {% endif %}
+
+</div>
+{% endblock %}

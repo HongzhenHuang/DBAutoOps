@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session, Flask
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import render_template, request, redirect, url_for, flash, session
 from utils import get_db_connection
+from config import Config_users
 import re
 
 def is_password_complex(password):
@@ -25,7 +25,7 @@ def register():
         username = request.form['username']
         password = request.form['password']
 
-        conn = get_db_connection()
+        conn = get_db_connection(Config_users.MYSQL_HOST, Config_users.MYSQL_USER, Config_users.MYSQL_PASSWORD, Config_users.MYSQL_DATABASE)
         cursor = conn.cursor()
         
         try:
@@ -38,9 +38,6 @@ def register():
             if not is_password_complex(password):
                 flash('密码必须包含大小写字母和数字，且至少8位')
                 return redirect(url_for('register'))
-
-            # # 哈希密码
-            # hashed_password = generate_password_hash(password)
             
             cursor.execute('INSERT INTO users (username, password) VALUES (%s, %s)',
                           (username, password))
@@ -61,7 +58,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        conn = get_db_connection()
+        conn = get_db_connection(Config_users.MYSQL_HOST, Config_users.MYSQL_USER, Config_users.MYSQL_PASSWORD, Config_users.MYSQL_DATABASE)
         cursor = conn.cursor(dictionary=True)
         
         try:

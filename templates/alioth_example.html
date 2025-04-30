@@ -1,0 +1,84 @@
+{% extends "dashboard.html" %}
+
+{% block feature_content %}
+<div class="backup-container"> {# 复用 backup-container 样式 #}
+    <h2 class="section-title">生成 Alioth 示例</h2> {# 页面标题 #}
+
+    <form method="post" action="{{ url_for('analyze_table') }}" class="query-form"> {# 假设生成操作的路由是 analyze_table #}
+        <div class="form-group">
+            <label for="host">实例名:</label>
+            <input type="text" id="host" name="host" placeholder="请输入实例名" required>
+        </div>
+        <div class="form-group">
+            <label for="database">数据库名:</label>
+            <input type="text" id="database" name="database" placeholder="请输入数据库名" required>
+        </div>
+        <div class="form-group">
+            <label for="table">表名:</label>
+            <input type="text" id="table" name="table" placeholder="请输入表名" required>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">生成示例</button>
+        </div>
+    </form>
+
+    {% with messages = get_flashed_messages(category_filter=["generation_status"]) %} {# 使用分类区分消息 #}
+        {% if messages %}
+            {# 使用你定义的 .flash-messages p 样式或 .alert #}
+            <div class="flash-messages">
+                 {% for message in messages %}
+                    <p>{{ message | safe }}</p> {# safe 过滤器用于显示可能的HTML #}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {# 分隔线 #}
+    <hr class="divider" style="margin-top: 30px; margin-bottom: 30px;">
+
+    <h3 class="section-subtitle">查看已有模板</h3>
+
+    {# 修改这里的 action 属性 #}
+    <form method="get" action="{{ url_for('view_specific_template') }}" class="view-template-form"> {# <--- 修改这里 #}
+        <div class="form-inline-container">
+            <div class="form-group">
+                <label for="template_select" style="margin-right: 10px;">选择模板:</label>
+                <select id="template_select" style="font-size: 1em; padding: 8px; width: 100%; max-width: 700px;" name="display_name" required>
+                    <option value="" disabled {% if not display_name %}selected{% endif %}>-- 请选择一个模板 --</option>
+                    {% for tpl in available_templates %}
+                        <option value="{{ tpl.display_name }}" {% if tpl.display_name == display_name %}selected{% endif %}>
+                            {{ tpl.display_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">查看</button>
+            </div>
+        </div>
+    </form>
+
+    {# Flash 消息部分，保持不变，它会显示来自 view_specific_template 路由的 flash 消息 #}
+    {% with messages = get_flashed_messages(category_filter=["view_status"]) %}
+        {% if messages %}
+            <div class="flash-messages" style="margin-top: 15px;">
+                {% for message in messages %}
+                    <p>{{ message | safe }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {# 模板内容显示部分，保持不变，它会显示 view_specific_template 路由传递过来的 template_content #}
+    {% if template_content %}
+        <div class="template-content-display" style="margin-top: 20px;">
+             {# 可以考虑把选中的模板名称也显示在标题里 #}
+            <h4 style="margin-bottom: 10px;">模板内容 ({{ display_name }}):</h4>
+            <pre style="background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; max-height: 600px; overflow-y: auto;">
+                <code>{{ template_content }}</code>
+            </pre>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}
