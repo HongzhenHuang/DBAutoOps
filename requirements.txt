@@ -1,0 +1,33 @@
+# Web Framework
+Flask>=2.0.0
+
+# Database Connectors
+mysql-connector-python>=8.0.0
+
+# Network and Graph Visualization
+networkx>=2.6.0
+pyvis>=0.3.0
+
+# Data Processing
+matplotlib>=3.3.0
+
+# SQL Parsing (if used in sql_extract.py)
+sqlparse>=0.4.0
+
+# Additional Dependencies (based on code analysis)
+# For handling subprocess and system operations (built-in, no need to install)
+# os, sys, subprocess, argparse, logging, re, hashlib, json
+
+# Note: The following are Python standard libraries and do not need to be installed:
+# - os
+# - sys
+# - logging
+# - argparse
+# - subprocess
+# - re
+# - hashlib
+# - json
+# - datetime
+# - collections
+# - smtplib
+# - email

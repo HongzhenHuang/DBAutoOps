@@ -3,8 +3,10 @@ from flask import render_template
 from mysql.connector import Error
 import logging
 
-# 数据库连接
 def get_db_connection(host, user, password, database):
+    """
+    获取数据库连接
+    """
     try:
         connection = mysql.connector.connect(
             host = host,
