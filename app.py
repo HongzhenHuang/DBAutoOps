@@ -9,7 +9,7 @@ from alioth_module.alioth import analyze_table, show_templates_page, view_specif
 
 # 创建Flask应用
 app = Flask(__name__)
-app.secret_key = 'sdHava31wHdef1312_KHCx'  # 设置一个安全的密钥
+app.secret_key = 'secret_key'  # 设置一个安全的密钥
 
 # 注册路由
 app.add_url_rule('/', '', home)
