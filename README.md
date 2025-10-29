@@ -565,7 +565,7 @@ send_alert(
 如有问题或建议，请通过以下方式联系：
 
 - 提交 GitHub Issue
-- 邮件：your-email@example.com
+- 邮件：1070058272@qq.com
 
 ---
 
