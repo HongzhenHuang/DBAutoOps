@@ -1,4 +1,8 @@
 class Config_users:
+    """
+    配置用户登录的数据库信息
+    创表代码：create.sql
+    """
     MYSQL_HOST = 'localhost'  # 数据库的实例名
     MYSQL_DATABASE = 'ops'  # 数据库的名称
     MYSQL_USER = 'user_name'  # 数据库的用户名
@@ -7,10 +11,8 @@ class Config_users:
 
 class Config_lock:
     """
-    以下这些是去配置锁表的数据库的信息
-    不是要备份的表的信息
-    要备份的表的信息作为参数传入
-    表的名称为 backup_locks，创建指令在 create.sql 中
+    配置锁表的数据库的信息
+    创表代码：backUp_module/create.sql
     """
     MYSQL_HOST = 'localhost'  # 锁表的实例名
     MYSQL_DATABASE = 'ops'  # 锁表所在的数据库的名称
@@ -27,7 +29,10 @@ class Config_lock:
 
 
 class Config_DLM:
-    # 以下信息用于配置存储数据血缘关系的数据库
+    """
+    配置存储数据血缘关系的数据库的信息
+    创表代码：dlm_module/create.sql
+    """
     host = 'localhost'
     user = 'user_name'
     password = 'your_password'
@@ -37,7 +42,10 @@ class Config_DLM:
 
 
 class Config_alioth:
-    # alioth线上作业位置
+    """
+    配置alioth线上作业存储位置和保存作业典范的数据库信息
+    """
+    # alioth线上作业的存储位置的数据库信息
     host = '127.0.0.1'
     user = 'user_name'
     password = 'your_password'
@@ -51,7 +59,8 @@ class Config_alioth:
     times_for_grammer = 10  # 第一次筛选时出现次数阈值
     times_for_grammer_2 = 10  # 第二次筛选时出现次数阈值
 
-    # 保存作业典范的在线数据库信息
+    # 保存作业典范的数据库信息
+    # 创表代码：alioth_module/create.sql
     user_for_online = "user_name"
     password_for_online = "your_password"
     host_for_online = "localhost"
